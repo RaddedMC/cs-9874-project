@@ -2,6 +2,9 @@
 
 ## Usage instructions:
 1. Install requirements
+- Optional: Create a Virtual Environment
+    - `python -m venv .venv`
+    - `source .venv/bin/activate`
 - Run `pip install -r requirements.txt`
 
 2. Run training of one MLP:
