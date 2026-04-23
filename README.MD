@@ -8,7 +8,7 @@
 - Run `pip install -r requirements.txt`
 
 2. Run training of one MLP:
-- Choose any persona out of: `commuter, early_shift, gig_driver, hybrid, night_shift, retiree, social, student, teacher, traveler, wfh`
+- Choose any persona out of: `commuter, early_shift, gig_driver, hybrid, night_shift, retiree, social, student, traveler, wfh`
 - Run `python mlp_train/train.py --epochs 80 --batch-size 128 --output-dir mlp_train/artifacts/[pick any persona] --persona [pick any persona]`
 
 3. Run training of combined MLP
