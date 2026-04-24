@@ -16,7 +16,13 @@
 
 4. Run predictions on any MLP:
 - Run `python mlp_train/predictions.py --checkpoint mlp_train/artifacts/[train_yourself/persona or all]/best_model.pt --persona [persona] --mode one_step --split test --preview-rows 3 --output-csv mlp_train/artifacts/[train_yourself/persona or all]/predictions.csv`
-- There are also quick shortcut scripts `quick_test_all_to_personas.sh` and `quick_test_all_personas.sh`
+- There are also quick shortcut scripts `quick_test_all_to_personas.sh` and `quick_test_all_personas.sh` to help with this.
 
 5. Run Federated Learning on any set of MLPs
 - Run `python mlp_federate/federate_averaging.py --checkpoints [mlp_train/artifacts/train_yourself/[persona]/best_model.pt for all desired personas] --output-dir mlp_federate/artifacts/`
+- There is a quick shortcut script `quick_federate_all_personas.sh` to help with this.
+
+6. Test Federated Learning on the persona datasets
+- Again I used a quick shortcut script to do this `quick_test_federated_on_personas.sh`
+
+7. Test Federated Learning on all persona datasets
