@@ -17,17 +17,18 @@ for persona in PERSONAS:
         output_dir = OUTPUT_ARTIFACTS_DIR / f"epsilon-{epsilon}" / f"test_{persona}"
         command = (
             f'python "{TEST_SCRIPT}" '
-            f'--checkpoint "{OUTPUT_ARTIFACTS_DIR / f"epsilon-{epsilon}" / "best_model_posthoc.pt"}"'
-            '--mode one_step'
-            f'--persona {persona}'
-            '--split test'
-            '-preview-rows 3'
-            f'--output-csv {output_dir}/predictions.csv'
+            f'--checkpoint "{OUTPUT_ARTIFACTS_DIR / f"epsilon-{epsilon}" / "best_model_posthoc.pt"}" '
+            '--mode one_step '
+            f'--persona {persona} '
+            '--split test '
+            '--preview-rows 3 '
+            f'--output-csv "{output_dir}/predictions.csv" '
         )
         process = subprocess.Popen(command, shell=True)
         processes.append((epsilon, process))
+    process.wait()
 
 # Wait for all processes to complete
 for epsilon, process in processes:
-    process.wait()
+    
     print(f"Completed epsilon {epsilon}")
