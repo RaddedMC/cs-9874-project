@@ -1,5 +1,6 @@
 import argparse
 import json
+import math
 import random
 import sys
 from dataclasses import dataclass
@@ -36,9 +37,16 @@ from train import (
 
 
 def parse_args() -> argparse.Namespace:
-	"""Parse command-line arguments for DP-SGD training."""
+	"""Parse command-line arguments for DP-SGD or post-hoc privatization."""
 	parser = argparse.ArgumentParser(
-		description="Train a multi-output MLP with Differential Privacy (DP-SGD via Opacus)."
+		description="Apply Differential Privacy via DP-SGD training or post-hoc checkpoint privatization."
+	)
+	parser.add_argument(
+		"--mode",
+		type=str,
+		default="dp-sgd",
+		choices=["dp-sgd", "post-hoc"],
+		help="Privacy mode: train with DP-SGD or privatize an existing checkpoint post-hoc.",
 	)
 
 	# Data & model arguments (reuse from train.py)
@@ -66,13 +74,13 @@ def parse_args() -> argparse.Namespace:
 	parser.add_argument(
 		"--epsilon",
 		type=float,
-		required=True,
+		default=None,
 		help="Privacy budget (epsilon). Lower values indicate stricter privacy (typical range: 0.5-10.0).",
 	)
 	parser.add_argument(
 		"--delta",
 		type=float,
-		required=True,
+		default=None,
 		help="Failure probability (delta). Typical value: 1e-5 or 1/n where n=dataset size.",
 	)
 	parser.add_argument(
@@ -86,6 +94,25 @@ def parse_args() -> argparse.Namespace:
 		type=float,
 		default=None,
 		help="Noise multiplier for DP-SGD. If not specified, computed from epsilon/delta.",
+	)
+	parser.add_argument(
+		"--input-checkpoint",
+		type=str,
+		default=None,
+		help="Path to an existing checkpoint when --mode post-hoc.",
+	)
+	parser.add_argument(
+		"--posthoc-mechanism",
+		type=str,
+		default="gaussian",
+		choices=["gaussian", "laplace"],
+		help="Post-hoc mechanism to apply to checkpoint weights.",
+	)
+	parser.add_argument(
+		"--weight-clip",
+		type=float,
+		default=1.0,
+		help="Element-wise clipping bound C before adding post-hoc noise.",
 	)
 
 	# Output directory
@@ -131,8 +158,6 @@ def compute_noise_multiplier(
 
 	This is a simplified formula; Opacus will compute exact accounting during training.
 	"""
-	import math
-
 	# Simplified estimate
 	num_steps = (dataset_size // batch_size) * epochs
 	if num_steps == 0:
@@ -141,6 +166,107 @@ def compute_noise_multiplier(
 	# Based on RDP accounting formula
 	noise_mult = math.sqrt(2 * math.log(1.25 / target_delta)) / (target_epsilon * math.sqrt(num_steps))
 	return max(noise_mult, 0.1)  # Ensure minimum noise
+
+
+def clip_state_dict(state_dict: Dict[str, torch.Tensor], clip_value: float) -> Dict[str, torch.Tensor]:
+	"""Clip each tensor element to [-clip_value, clip_value]."""
+	if clip_value <= 0:
+		raise ValueError("weight-clip must be > 0.")
+	return {k: v.clone().clamp(min=-clip_value, max=clip_value) for k, v in state_dict.items()}
+
+
+def privatize_state_dict_posthoc(
+	state_dict: Dict[str, torch.Tensor],
+	epsilon: float,
+	delta: float,
+	mechanism: str,
+	clip_value: float,
+	seed: int,
+) -> Dict[str, torch.Tensor]:
+	"""Apply post-hoc noise to a checkpoint state_dict after clipping."""
+	if epsilon <= 0:
+		raise ValueError("epsilon must be > 0 for post-hoc privatization.")
+	if mechanism == "gaussian" and not (0.0 < delta < 1.0):
+		raise ValueError("delta must be in (0, 1) for Gaussian post-hoc mechanism.")
+
+	clipped = clip_state_dict(state_dict, clip_value)
+	gen = torch.Generator(device="cpu")
+	gen.manual_seed(seed)
+	rng = np.random.default_rng(seed)
+
+	if mechanism == "gaussian":
+		sigma = clip_value * math.sqrt(2.0 * math.log(1.25 / delta)) / epsilon
+		return {
+			k: v + torch.randn(v.shape, generator=gen, device=v.device, dtype=v.dtype) * sigma
+			for k, v in clipped.items()
+		}
+
+	b = clip_value / epsilon
+	noisy: Dict[str, torch.Tensor] = {}
+	for k, v in clipped.items():
+		noise = rng.laplace(loc=0.0, scale=b, size=tuple(v.shape)).astype(np.float32)
+		noise_t = torch.from_numpy(noise).to(device=v.device, dtype=v.dtype)
+		noisy[k] = v + noise_t
+	return noisy
+
+
+def run_posthoc_privatisation(args: argparse.Namespace) -> None:
+	"""Privatize an existing trained checkpoint by adding calibrated noise to weights."""
+	if args.input_checkpoint is None:
+		raise ValueError("--input-checkpoint is required when --mode post-hoc.")
+	if args.epsilon is None:
+		raise ValueError("--epsilon is required when --mode post-hoc.")
+	if args.delta is None:
+		raise ValueError("--delta is required when --mode post-hoc.")
+
+	input_path = Path(args.input_checkpoint)
+	if not input_path.exists():
+		raise FileNotFoundError(f"Input checkpoint not found: {input_path}")
+
+	output_dir = Path(args.output_dir)
+	output_dir.mkdir(parents=True, exist_ok=True)
+
+	checkpoint = torch.load(input_path, map_location="cpu", weights_only=False)
+	if "model_state_dict" not in checkpoint:
+		raise ValueError("Checkpoint does not contain 'model_state_dict'.")
+
+	priv_state = privatize_state_dict_posthoc(
+		state_dict=checkpoint["model_state_dict"],
+		epsilon=args.epsilon,
+		delta=args.delta,
+		mechanism=args.posthoc_mechanism,
+		clip_value=args.weight_clip,
+		seed=args.seed,
+	)
+
+	checkpoint["model_state_dict"] = priv_state
+	checkpoint["posthoc_privacy"] = {
+		"mechanism": args.posthoc_mechanism,
+		"epsilon": args.epsilon,
+		"delta": args.delta,
+		"weight_clip": args.weight_clip,
+	}
+
+	output_path = output_dir / "best_model_posthoc.pt"
+	torch.save(checkpoint, output_path)
+
+	metrics_path = output_dir / "metrics_posthoc.json"
+	metrics_payload = {
+		"mode": "post-hoc",
+		"input_checkpoint": str(input_path),
+		"output_checkpoint": str(output_path),
+		"posthoc_privacy": checkpoint["posthoc_privacy"],
+	}
+	metrics_path.write_text(json.dumps(metrics_payload, indent=2), encoding="utf-8")
+
+	print("=" * 80)
+	print("POST-HOC PRIVATIZATION COMPLETE")
+	print("=" * 80)
+	print(f"Mechanism: {args.posthoc_mechanism}")
+	print(f"Privacy parameters: ε={args.epsilon:.4f}, δ={args.delta:.2e}")
+	print(f"Weight clip: {args.weight_clip}")
+	print(f"Saved checkpoint: {output_path}")
+	print(f"Saved metadata: {metrics_path}")
 
 
 def run_epoch_dp(
@@ -238,9 +364,19 @@ def get_privacy_budget(privacy_engine: PrivacyEngine, delta: float) -> Tuple[flo
 
 
 def main() -> None:
-	"""Main training loop with differential privacy."""
+	"""Main entrypoint for differential privacy workflows."""
 	args = parse_args()
 	set_seed(args.seed)
+
+	if args.mode == "post-hoc":
+		run_posthoc_privatisation(args)
+		return
+
+	if args.epsilon is None:
+		raise ValueError("--epsilon is required when --mode dp-sgd.")
+	if args.delta is None:
+		raise ValueError("--delta is required when --mode dp-sgd.")
+
 	device = resolve_device(args.device)
 
 	data_dir = Path(args.data_dir)

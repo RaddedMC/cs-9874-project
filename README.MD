@@ -26,3 +26,8 @@
 - Again I used a quick shortcut script to do this `quick_test_federated_on_personas.sh`
 
 7. Test Federated Learning on all persona datasets
+- Run `python mlp_train/predict_experiments.py --checkpoint mlp_federate/artifacts/federated_model.pt --mode one_step --split test --preview-rows 3 --output-csv mlp_federate/artifacts/all/predictions.csv --persona all`
+
+8. Run Differential Privacy in post-hoc mode on the federated model
+- Run `python mlp_differential_privacy/privatize.py --mode post-hoc --input-checkpoint mlp_federate/artifacts/federated_model.pt --epsilon [your desired epsilon] --delta 1e-5 --posthoc-mechanism gaussian --weight-clip 1.0 --output-dir mlp_differential_privacy/artifacts/federated/epsilon-[your desired epsilon]`
+- You can also run for the full range of epsilon values with `quick_privatize_federated.py`
