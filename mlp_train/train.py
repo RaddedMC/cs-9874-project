@@ -460,10 +460,7 @@ def main() -> None:
 
 	splits = split_by_time_per_persona(df_clean, train_ratio=args.train_ratio, val_ratio=args.val_ratio)
 
-	include_persona = args.persona == "all"
-	if include_persona:
-		splits.train, splits.val, splits.test, _ = add_persona_dummies(splits.train, splits.val, splits.test)
-
+	include_persona = False
 	feature_cols = build_feature_columns(splits.train, include_persona=include_persona)
 	stats = fit_standardizer(splits.train, feature_cols)
 

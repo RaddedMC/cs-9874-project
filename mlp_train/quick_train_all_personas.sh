@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-ARTIFACTS_DIR="$ROOT_DIR/mlp_train/artifacts"
+ARTIFACTS_DIR="$ROOT_DIR/mlp_train/artifacts/train_yourself"
 TRAIN_SCRIPT="$ROOT_DIR/mlp_train/train.py"
 
 PERSONAS=(
