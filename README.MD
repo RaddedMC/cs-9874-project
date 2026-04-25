@@ -30,7 +30,8 @@
 
 8. Run Differential Privacy in post-hoc mode on the federated model
 - Run `python mlp_differential_privacy/privatize.py --mode post-hoc --input-checkpoint mlp_federate/artifacts/federated_model.pt --epsilon [your desired epsilon] --delta 1e-5 --posthoc-mechanism gaussian --weight-clip 1.0 --output-dir mlp_differential_privacy/artifacts/federated/epsilon-[your desired epsilon]`
-- You can also run for the full range of epsilon values with `quick_privatize_federated.py`
+- You can also run for the full range of epsilon values with `mlp_federate/federated/quick_privatize_federated.py`
 
 9. Test Differential Privacy on the previous model
-- I used the script `quick_test_privatized_federated.py` to create 300 model tests -- one for each Epsilon level and persona
+- I used the script `mlp_federate/federated/quick_test_privatized_federated.py` to create 300 model tests -- one for each Epsilon level and persona
+- I then extracted the data out of each test file into a single file with `mlp_federate/federated/quick_collect_test_pf.py` and finally created a graph with `mlp_federate/federated/quick_graph_test_pf.py`
