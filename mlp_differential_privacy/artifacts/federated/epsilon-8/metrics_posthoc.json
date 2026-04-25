@@ -1,0 +1,11 @@
+{
+  "mode": "post-hoc",
+  "input_checkpoint": "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_federate/artifacts/federated_model.pt",
+  "output_checkpoint": "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/federated/epsilon-8/best_model_posthoc.pt",
+  "posthoc_privacy": {
+    "mechanism": "gaussian",
+    "epsilon": 8.0,
+    "delta": 8e-07,
+    "weight_clip": 1.0
+  }
+}

@@ -11,8 +11,8 @@ PERSONAS = ["commuter", "early_shift", "gig_driver", "hybrid", "night_shift", "r
 
 processes = []
 for persona in PERSONAS:
-    for i in range(1, 21):
-        epsilon = i/2
+    for i in range(1, 31):
+        epsilon = i
         print(f"Starting testing for persona {persona} and epsilon {epsilon}")
         output_dir = OUTPUT_ARTIFACTS_DIR / f"epsilon-{epsilon}" / f"test_{persona}"
         command = (
