@@ -110,10 +110,39 @@ def tensor_digest(state_dict: Dict[str, torch.Tensor]) -> str:
     return hasher.hexdigest()
 
 
+def normalize_state_dict_keys(state_dict: Dict[str, torch.Tensor]) -> Dict[str, torch.Tensor]:
+    """
+    Normalize wrapper-specific prefixes from state_dict keys.
+
+    Opacus-wrapped modules commonly save keys like "_module.trunk.0.weight".
+    Downstream inference expects plain module keys like "trunk.0.weight".
+    """
+    if not state_dict:
+        return state_dict
+
+    def _strip_prefix(key: str) -> str:
+        if key.startswith("_module."):
+            return key[len("_module.") :]
+        if key.startswith("module."):
+            return key[len("module.") :]
+        return key
+
+    normalized = {_strip_prefix(k): v for k, v in state_dict.items()}
+
+    # Guard against accidental key collisions after normalization.
+    if len(normalized) != len(state_dict):
+        raise ValueError("State dict key collision detected while normalizing key prefixes.")
+
+    return normalized
+
+
 def load_checkpoint(path: Path) -> Dict[str, Any]:
     if not path.exists():
         raise FileNotFoundError(f"Checkpoint not found: {path}")
-    return torch.load(path, map_location="cpu")
+    checkpoint = torch.load(path, map_location="cpu")
+    if "model_state_dict" in checkpoint:
+        checkpoint["model_state_dict"] = normalize_state_dict_keys(checkpoint["model_state_dict"])
+    return checkpoint
 
 
 def validate_compatibility(

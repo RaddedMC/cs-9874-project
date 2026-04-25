@@ -41,3 +41,8 @@
 
 11. Federate the local dp models
 - `mlp_differential_privacy/local_dp/quick_federate_ldp.py`
+
+12. Test and graph the federated models
+- `mlp_differential_privacy/local_dp/quick_test_ldp.py`
+- `mlp_differential_privacy/local_dp/quick_collect_test_ldp.py`
+- `mlp_differential_privacy/local_dp/quick_graph_test_ldp.py`
