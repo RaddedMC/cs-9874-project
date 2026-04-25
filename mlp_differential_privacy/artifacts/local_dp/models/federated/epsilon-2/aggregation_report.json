@@ -1,0 +1,103 @@
+{
+  "created_at_utc": "2026-04-25T06:08:43.513443+00:00",
+  "aggregation_method": "average",
+  "weights": [
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.1
+  ],
+  "num_models": 10,
+  "source_checkpoints": [
+    "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/commuter/best_model.pt",
+    "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/early_shift/best_model.pt",
+    "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/gig_driver/best_model.pt",
+    "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/hybrid/best_model.pt",
+    "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/night_shift/best_model.pt",
+    "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/retiree/best_model.pt",
+    "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/social/best_model.pt",
+    "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/student/best_model.pt",
+    "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/traveler/best_model.pt",
+    "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/wfh/best_model.pt"
+  ],
+  "compatibility": {
+    "reference_checkpoint": "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/commuter/best_model.pt",
+    "compatibility_ok": true,
+    "warnings": [
+      {
+        "type": "standardizer_drift",
+        "checkpoint": "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/early_shift/best_model.pt",
+        "column": "cloudiness",
+        "relative_mean_delta": 0.011208347779413439,
+        "relative_std_delta": 0.12514601977888473
+      },
+      {
+        "type": "standardizer_drift",
+        "checkpoint": "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/hybrid/best_model.pt",
+        "column": "cloudiness",
+        "relative_mean_delta": 0.0003291029551064004,
+        "relative_std_delta": 0.0965616913272881
+      },
+      {
+        "type": "standardizer_drift",
+        "checkpoint": "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/night_shift/best_model.pt",
+        "column": "cloudiness",
+        "relative_mean_delta": 0.023833686751544975,
+        "relative_std_delta": 0.15997085100638397
+      },
+      {
+        "type": "standardizer_drift",
+        "checkpoint": "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/night_shift/best_model.pt",
+        "column": "ambient_light_bedroom",
+        "relative_mean_delta": 0.8542648920328001,
+        "relative_std_delta": 0.8537901329761528
+      },
+      {
+        "type": "standardizer_drift",
+        "checkpoint": "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/social/best_model.pt",
+        "column": "cloudiness",
+        "relative_mean_delta": 0.005365682981711126,
+        "relative_std_delta": 0.13164653456883818
+      },
+      {
+        "type": "standardizer_drift",
+        "checkpoint": "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/wfh/best_model.pt",
+        "column": "cloudiness",
+        "relative_mean_delta": 0.0037857713282878776,
+        "relative_std_delta": 0.12285088792148853
+      }
+    ],
+    "validated_fields": {
+      "state_dict_keys": true,
+      "state_dict_shapes": true,
+      "hidden_dims": true,
+      "window_size": true,
+      "horizon": true,
+      "feature_columns": true,
+      "binary_targets": true,
+      "continuous_targets": true,
+      "persona_feature_mode": true
+    },
+    "checked_models": [
+      "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/commuter/best_model.pt",
+      "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/early_shift/best_model.pt",
+      "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/gig_driver/best_model.pt",
+      "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/hybrid/best_model.pt",
+      "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/night_shift/best_model.pt",
+      "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/retiree/best_model.pt",
+      "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/social/best_model.pt",
+      "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/student/best_model.pt",
+      "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/traveler/best_model.pt",
+      "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/wfh/best_model.pt"
+    ]
+  },
+  "tensor_count": 8,
+  "federated_checkpoint": "/home/radded/Courses/Dependable AI Systems/Project/cs-9874-project/mlp_differential_privacy/artifacts/local_dp/models/federated/epsilon-2/federated_model.pt",
+  "federated_state_digest": "de62c6c9f10f05238e4188fcab7aea4c6a765de618542276e66f93d0571fc927"
+}

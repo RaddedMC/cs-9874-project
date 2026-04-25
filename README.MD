@@ -37,4 +37,7 @@
 - I then extracted the data out of each test file into a single file with `mlp_federate/federated/quick_collect_test_pf.py` and finally created a graph with `mlp_federate/federated/quick_graph_test_pf.py`
 
 10. Run Differential Privacy in SGD mode on every persona and DP level
-- Another script! `mlp_differential_privacy/local_db/quick_train_ldp.py`
+- Another script! `mlp_differential_privacy/local_dp/quick_train_ldp.py`
+
+11. Federate the local dp models
+- `mlp_differential_privacy/local_dp/quick_federate_ldp.py`

@@ -4,7 +4,7 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 
-OUTPUT_ARTIFACTS_DIR = PROJECT_ROOT / "mlp_differential_privacy" / "artifacts" / "local_dp" / "models" / "local"
+OUTPUT_ARTIFACTS_DIR = PROJECT_ROOT / "artifacts" / "local_dp" / "models" / "local"
 
 TRAIN_SCRIPT = PROJECT_ROOT / "privatize.py"
 
@@ -28,8 +28,6 @@ for persona in PERSONAS:
         )
         process = subprocess.Popen(command, shell=True)
         processes.append((epsilon, process))
-        if True:
-            print("Reached 1 active tasks. Waiting...")
+        if i % 15 == 0:
             for epsilon, process in processes:
                 process.wait()
-                print(f"Completed persona {persona}, epsilon {epsilon}")
