@@ -3,26 +3,20 @@ import json
 import math
 import random
 import sys
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Sequence, Tuple
+from typing import Dict, List, Tuple
 
 import numpy as np
-import pandas as pd
 import torch
 from opacus import PrivacyEngine
-from opacus.utils.batch_memory_manager import BatchMemoryManager
+from opacus.accountants.utils import get_noise_multiplier
 from torch import nn
 from torch.utils.data import DataLoader, TensorDataset
 
 # Import data loading and model functions from train.py
-sys.path.insert(0, str(Path(__file__).parent.parent / "mlp_train"))
-from train import (
-	META_COLUMNS,
-	DROP_FEATURE_COLUMNS,
-	SplitFrames,
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from mlp_train.train import (
 	MultiOutputMLP,
-	add_persona_dummies,
 	apply_standardizer,
 	build_feature_columns,
 	build_windowed_samples,
@@ -149,23 +143,26 @@ def resolve_device(device_arg: str) -> torch.device:
 def compute_noise_multiplier(
 	dataset_size: int, batch_size: int, target_epsilon: float, target_delta: float, epochs: int
 ) -> float:
-	"""
-	Compute noise multiplier for DP-SGD to achieve target (epsilon, delta).
+	"""Calibrate the DP-SGD noise multiplier with Opacus' accountant helper."""
+	if dataset_size <= 0:
+		raise ValueError("dataset_size must be > 0.")
+	if batch_size <= 0:
+		raise ValueError("batch_size must be > 0.")
+	if target_epsilon <= 0:
+		raise ValueError("target_epsilon must be > 0.")
+	if target_delta <= 0:
+		raise ValueError("target_delta must be > 0.")
+	if epochs <= 0:
+		raise ValueError("epochs must be > 0.")
 
-	Uses the Opacus recommendation formula based on RDP accounting.
-	For a rough estimate, we can use:
-		noise_multiplier ≈ sqrt(2 * log(1.25/delta)) / (epsilon * sqrt(dataset_size))
-
-	This is a simplified formula; Opacus will compute exact accounting during training.
-	"""
-	# Simplified estimate
-	num_steps = (dataset_size // batch_size) * epochs
-	if num_steps == 0:
-		return 1.0
-
-	# Based on RDP accounting formula
-	noise_mult = math.sqrt(2 * math.log(1.25 / target_delta)) / (target_epsilon * math.sqrt(num_steps))
-	return max(noise_mult, 0.1)  # Ensure minimum noise
+	sample_rate = min(batch_size / dataset_size, 1.0)
+	return get_noise_multiplier(
+		target_epsilon=target_epsilon,
+		target_delta=target_delta,
+		sample_rate=sample_rate,
+		epochs=epochs,
+		accountant="rdp",
+	)
 
 
 def clip_state_dict(state_dict: Dict[str, torch.Tensor], clip_value: float) -> Dict[str, torch.Tensor]:
@@ -465,7 +462,7 @@ def main() -> None:
 		print(f"Computed noise multiplier: {noise_multiplier:.6f}")
 
 	# Wrap with PrivacyEngine for DP-SGD
-	privacy_engine = PrivacyEngine()
+	privacy_engine = PrivacyEngine(accountant="rdp")
 	model, optimizer, train_loader = privacy_engine.make_private(
 		module=model,
 		optimizer=optimizer,
@@ -474,7 +471,7 @@ def main() -> None:
 		max_grad_norm=args.max_grad_norm,
 	)
 
-	print(f"PrivacyEngine configured with:")
+	print("PrivacyEngine configured with:")
 	print(f"  - Noise multiplier: {noise_multiplier:.6f}")
 	print(f"  - Max grad norm (clipping): {args.max_grad_norm:.4f}")
 	print(f"  - Batch size: {args.batch_size}")

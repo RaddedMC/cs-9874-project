@@ -35,3 +35,6 @@
 9. Test Differential Privacy on the previous model
 - I used the script `mlp_federate/federated/quick_test_privatized_federated.py` to create 300 model tests -- one for each Epsilon level and persona
 - I then extracted the data out of each test file into a single file with `mlp_federate/federated/quick_collect_test_pf.py` and finally created a graph with `mlp_federate/federated/quick_graph_test_pf.py`
+
+10. Run Differential Privacy in SGD mode on every persona and DP level
+- Another script! `mlp_differential_privacy/local_db/quick_train_ldp.py`

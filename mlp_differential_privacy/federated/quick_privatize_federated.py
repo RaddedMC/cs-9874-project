@@ -9,7 +9,7 @@ INPUT_ARTIFACTS_DIR = PROJECT_ROOT / "mlp_federate" / "artifacts"
 TRAIN_SCRIPT = PROJECT_ROOT / "mlp_differential_privacy" / "privatize.py"
 
 processes = []
-for i in range(1, 31):
+for i in range(21, 31):
     epsilon = i
     print(f"Starting training for epsilon {epsilon}")
     output_dir = OUTPUT_ARTIFACTS_DIR / f"epsilon-{epsilon}"
