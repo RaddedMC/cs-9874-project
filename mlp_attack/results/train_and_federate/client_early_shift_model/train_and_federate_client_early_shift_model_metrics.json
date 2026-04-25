@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-04-25T19:55:29.050066+00:00",
+  "model_location": "mlp_train/artifacts/train_yourself/early_shift/best_model.pt",
+  "output_name": "train_and_federate_client_early_shift_model",
+  "attack_output": "mlp_attack/results/train_and_federate/client_early_shift_model",
+  "target_persona": "early_shift",
+  "window_size": 1,
+  "horizon": 1,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "member_count": 2282,
+  "non_member_count": 403,
+  "threshold": 0.5239861011505127,
+  "threshold_selection_accuracy": 0.851024208566108,
+  "score_mean_member": 0.03803856298327446,
+  "score_mean_non_member": 0.061362624168395996,
+  "score_std_member": 0.07025350630283356,
+  "score_std_non_member": 0.11542262881994247,
+  "metrics": {
+    "attack_accuracy": 0.851024208566108,
+    "attack_precision": 0.851644245142003,
+    "attack_recall": 0.9986853637160386,
+    "attack_f1": 0.9193223073820088,
+    "roc_auc": 0.5757465372545523,
+    "tp": 2279.0,
+    "tn": 6.0,
+    "fp": 397.0,
+    "fn": 3.0
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-04-25T19:55:28.014674+00:00",
+  "model_location": "mlp_train/artifacts/train_yourself/wfh/best_model.pt",
+  "output_name": "train_and_federate_client_wfh_model",
+  "attack_output": "mlp_attack/results/train_and_federate/client_wfh_model",
+  "target_persona": "wfh",
+  "window_size": 1,
+  "horizon": 1,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "member_count": 2282,
+  "non_member_count": 403,
+  "threshold": 0.6124974489212036,
+  "threshold_selection_accuracy": 0.8502793296089386,
+  "score_mean_member": 0.056664109230041504,
+  "score_mean_non_member": 0.07280059903860092,
+  "score_std_member": 0.08400918543338776,
+  "score_std_non_member": 0.1052486002445221,
+  "metrics": {
+    "attack_accuracy": 0.8502793296089386,
+    "attack_precision": 0.8507462686567164,
+    "attack_recall": 0.9991235758106923,
+    "attack_f1": 0.9189842805320435,
+    "roc_auc": 0.561127868766895,
+    "tp": 2280.0,
+    "tn": 3.0,
+    "fp": 400.0,
+    "fn": 2.0
+  }
+}

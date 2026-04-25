@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-04-25T19:55:28.094730+00:00",
+  "model_location": "mlp_train/artifacts/train_yourself/commuter/best_model.pt",
+  "output_name": "train_and_federate_client_commuter_model",
+  "attack_output": "mlp_attack/results/train_and_federate/client_commuter_model",
+  "target_persona": "commuter",
+  "window_size": 1,
+  "horizon": 1,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "member_count": 2282,
+  "non_member_count": 403,
+  "threshold": 0.8216044902801514,
+  "threshold_selection_accuracy": 0.8506517690875233,
+  "score_mean_member": 0.04406045377254486,
+  "score_mean_non_member": 0.0663599967956543,
+  "score_std_member": 0.08482392132282257,
+  "score_std_non_member": 0.12071286141872406,
+  "metrics": {
+    "attack_accuracy": 0.8506517690875233,
+    "attack_precision": 0.8505404398061871,
+    "attack_recall": 1.0,
+    "attack_f1": 0.9192346424974823,
+    "roc_auc": 0.575617139638513,
+    "tp": 2282.0,
+    "tn": 2.0,
+    "fp": 401.0,
+    "fn": 0.0
+  }
+}

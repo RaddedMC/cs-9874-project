@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-04-25T19:57:35.488630+00:00",
+  "model_location": "mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-27/retiree/best_model.pt",
+  "output_name": "private_train_federate_client_retiree_model:epsilon-27",
+  "attack_output": "mlp_attack/results/private_train_federate/client/retiree_model/epsilon-27",
+  "target_persona": "retiree",
+  "window_size": 1,
+  "horizon": 1,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "member_count": 2282,
+  "non_member_count": 403,
+  "threshold": 0.6527186632156372,
+  "threshold_selection_accuracy": 0.852513966480447,
+  "score_mean_member": 0.1223035380244255,
+  "score_mean_non_member": 0.13787700235843658,
+  "score_std_member": 0.14191670715808868,
+  "score_std_non_member": 0.1685313880443573,
+  "metrics": {
+    "attack_accuracy": 0.852513966480447,
+    "attack_precision": 0.853183520599251,
+    "attack_recall": 0.9982471516213848,
+    "attack_f1": 0.920032310177706,
+    "roc_auc": 0.5126026753772648,
+    "tp": 2278.0,
+    "tn": 11.0,
+    "fp": 392.0,
+    "fn": 4.0
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-04-25T19:57:36.200255+00:00",
+  "model_location": "mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-28/night_shift/best_model.pt",
+  "output_name": "private_train_federate_client_night_shift_model:epsilon-28",
+  "attack_output": "mlp_attack/results/private_train_federate/client/night_shift_model/epsilon-28",
+  "target_persona": "night_shift",
+  "window_size": 1,
+  "horizon": 1,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "member_count": 2282,
+  "non_member_count": 403,
+  "threshold": 0.7194975018501282,
+  "threshold_selection_accuracy": 0.8499068901303538,
+  "score_mean_member": 0.1177295669913292,
+  "score_mean_non_member": 0.14218011498451233,
+  "score_std_member": 0.13427072763442993,
+  "score_std_non_member": 0.15266627073287964,
+  "metrics": {
+    "attack_accuracy": 0.8499068901303538,
+    "attack_precision": 0.8509525588345163,
+    "attack_recall": 0.9982471516213848,
+    "attack_f1": 0.9187336156483162,
+    "roc_auc": 0.5731379248101987,
+    "tp": 2278.0,
+    "tn": 4.0,
+    "fp": 399.0,
+    "fn": 4.0
+  }
+}

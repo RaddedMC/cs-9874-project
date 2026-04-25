@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-04-25T19:55:46.589289+00:00",
+  "model_location": "mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-1/traveler/best_model.pt",
+  "output_name": "private_train_federate_client_traveler_model:epsilon-1",
+  "attack_output": "mlp_attack/results/private_train_federate/client/traveler_model/epsilon-1",
+  "target_persona": "traveler",
+  "window_size": 1,
+  "horizon": 1,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "member_count": 2282,
+  "non_member_count": 403,
+  "threshold": 0.7169796228408813,
+  "threshold_selection_accuracy": 0.8499068901303538,
+  "score_mean_member": 0.40770480036735535,
+  "score_mean_non_member": 0.3558129668235779,
+  "score_std_member": 0.07748568803071976,
+  "score_std_non_member": 0.08284655958414078,
+  "metrics": {
+    "attack_accuracy": 0.8499068901303538,
+    "attack_precision": 0.8499068901303538,
+    "attack_recall": 1.0,
+    "attack_f1": 0.91886450573787,
+    "roc_auc": 0.32769456943215103,
+    "tp": 2282.0,
+    "tn": 0.0,
+    "fp": 403.0,
+    "fn": 0.0
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-04-25T19:55:38.259385+00:00",
+  "model_location": "mlp_differential_privacy/artifacts/federated/epsilon-22/best_model_posthoc.pt",
+  "output_name": "train_private_federate_server_output_model:epsilon-22",
+  "attack_output": "mlp_attack/results/train_private_federate/server_output_model/epsilon-22",
+  "target_persona": "commuter",
+  "window_size": 1,
+  "horizon": 1,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "member_count": 2282,
+  "non_member_count": 403,
+  "threshold": 244.89552307128906,
+  "threshold_selection_accuracy": 0.8499068901303538,
+  "score_mean_member": 61.24677658081055,
+  "score_mean_non_member": 88.1085433959961,
+  "score_std_member": 37.21804428100586,
+  "score_std_non_member": 34.886634826660156,
+  "metrics": {
+    "attack_accuracy": 0.8499068901303538,
+    "attack_precision": 0.8499068901303538,
+    "attack_recall": 1.0,
+    "attack_f1": 0.91886450573787,
+    "roc_auc": 0.7074896210063437,
+    "tp": 2282.0,
+    "tn": 0.0,
+    "fp": 403.0,
+    "fn": 0.0
+  }
+}

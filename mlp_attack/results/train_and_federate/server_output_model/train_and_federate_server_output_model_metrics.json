@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-04-25T19:55:28.650784+00:00",
+  "model_location": "mlp_federate/artifacts/federated_model.pt",
+  "output_name": "train_and_federate_server_output_model",
+  "attack_output": "mlp_attack/results/train_and_federate/server_output_model",
+  "target_persona": "commuter",
+  "window_size": 1,
+  "horizon": 1,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "member_count": 2282,
+  "non_member_count": 403,
+  "threshold": 0.7196524739265442,
+  "threshold_selection_accuracy": 0.8513966480446927,
+  "score_mean_member": 0.09170592576265335,
+  "score_mean_non_member": 0.12728054821491241,
+  "score_std_member": 0.12786784768104553,
+  "score_std_non_member": 0.16537269949913025,
+  "metrics": {
+    "attack_accuracy": 0.8513966480446927,
+    "attack_precision": 0.8522259633370745,
+    "attack_recall": 0.9982471516213848,
+    "attack_f1": 0.9194752774974773,
+    "roc_auc": 0.5809072186471751,
+    "tp": 2278.0,
+    "tn": 8.0,
+    "fp": 395.0,
+    "fn": 4.0
+  }
+}

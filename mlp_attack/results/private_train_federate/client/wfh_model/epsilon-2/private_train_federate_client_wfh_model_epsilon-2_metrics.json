@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-04-25T19:55:55.372073+00:00",
+  "model_location": "mlp_differential_privacy/artifacts/local_dp/models/local/epsilon-2/wfh/best_model.pt",
+  "output_name": "private_train_federate_client_wfh_model:epsilon-2",
+  "attack_output": "mlp_attack/results/private_train_federate/client/wfh_model/epsilon-2",
+  "target_persona": "wfh",
+  "window_size": 1,
+  "horizon": 1,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "member_count": 2282,
+  "non_member_count": 403,
+  "threshold": 0.6666228771209717,
+  "threshold_selection_accuracy": 0.8502793296089386,
+  "score_mean_member": 0.24103403091430664,
+  "score_mean_non_member": 0.24571561813354492,
+  "score_std_member": 0.11493037641048431,
+  "score_std_non_member": 0.13871879875659943,
+  "metrics": {
+    "attack_accuracy": 0.8502793296089386,
+    "attack_precision": 0.8507462686567164,
+    "attack_recall": 0.9991235758106923,
+    "attack_f1": 0.9189842805320435,
+    "roc_auc": 0.493520332823717,
+    "tp": 2280.0,
+    "tn": 3.0,
+    "fp": 400.0,
+    "fn": 2.0
+  }
+}

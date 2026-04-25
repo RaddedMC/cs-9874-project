@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-04-25T19:55:31.887382+00:00",
+  "model_location": "mlp_train/artifacts/all/best_model.pt",
+  "output_name": "share_then_train_server_output_model",
+  "attack_output": "mlp_attack/results/share_then_train/server_output_model",
+  "target_persona": "all",
+  "window_size": 1,
+  "horizon": 1,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "member_count": 22820,
+  "non_member_count": 4030,
+  "threshold": 1.6116694211959839,
+  "threshold_selection_accuracy": 0.8499068901303538,
+  "score_mean_member": 0.05050945281982422,
+  "score_mean_non_member": 0.060448046773672104,
+  "score_std_member": 0.0922885313630104,
+  "score_std_non_member": 0.10316917300224304,
+  "metrics": {
+    "attack_accuracy": 0.8499068901303538,
+    "attack_precision": 0.8499068901303538,
+    "attack_recall": 1.0,
+    "attack_f1": 0.91886450573787,
+    "roc_auc": 0.5565790804287737,
+    "tp": 22820.0,
+    "tn": 0.0,
+    "fp": 4030.0,
+    "fn": 0.0
+  }
+}

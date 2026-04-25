@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-04-25T19:55:28.683859+00:00",
+  "model_location": "mlp_train/artifacts/train_yourself/hybrid/best_model.pt",
+  "output_name": "train_and_federate_client_hybrid_model",
+  "attack_output": "mlp_attack/results/train_and_federate/client_hybrid_model",
+  "target_persona": "hybrid",
+  "window_size": 1,
+  "horizon": 1,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "member_count": 2282,
+  "non_member_count": 403,
+  "threshold": 0.5089907646179199,
+  "threshold_selection_accuracy": 0.8521415270018622,
+  "score_mean_member": 0.05444258823990822,
+  "score_mean_non_member": 0.08830306679010391,
+  "score_std_member": 0.08844773471355438,
+  "score_std_non_member": 0.14160075783729553,
+  "metrics": {
+    "attack_accuracy": 0.8521415270018622,
+    "attack_precision": 0.8544565626175253,
+    "attack_recall": 0.9956178790534619,
+    "attack_f1": 0.919651892329488,
+    "roc_auc": 0.5874521283189401,
+    "tp": 2272.0,
+    "tn": 16.0,
+    "fp": 387.0,
+    "fn": 10.0
+  }
+}

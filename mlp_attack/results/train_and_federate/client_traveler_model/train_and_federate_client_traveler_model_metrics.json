@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-04-25T19:55:28.017472+00:00",
+  "model_location": "mlp_train/artifacts/train_yourself/traveler/best_model.pt",
+  "output_name": "train_and_federate_client_traveler_model",
+  "attack_output": "mlp_attack/results/train_and_federate/client_traveler_model",
+  "target_persona": "traveler",
+  "window_size": 1,
+  "horizon": 1,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "member_count": 2282,
+  "non_member_count": 403,
+  "threshold": 1.2271405458450317,
+  "threshold_selection_accuracy": 0.8499068901303538,
+  "score_mean_member": 0.04362000524997711,
+  "score_mean_non_member": 0.06012892350554466,
+  "score_std_member": 0.08726435899734497,
+  "score_std_non_member": 0.10347505658864975,
+  "metrics": {
+    "attack_accuracy": 0.8499068901303538,
+    "attack_precision": 0.8499068901303538,
+    "attack_recall": 1.0,
+    "attack_f1": 0.91886450573787,
+    "roc_auc": 0.5832178903621611,
+    "tp": 2282.0,
+    "tn": 0.0,
+    "fp": 403.0,
+    "fn": 0.0
+  }
+}

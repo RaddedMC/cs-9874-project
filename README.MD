@@ -46,3 +46,6 @@
 - `mlp_differential_privacy/local_dp/quick_test_ldp.py`
 - `mlp_differential_privacy/local_dp/quick_collect_test_ldp.py`
 - `mlp_differential_privacy/local_dp/quick_graph_test_ldp.py`
+
+13. Perform a Membership Inference attack on every model:
+- `mlp_attack/membership_inference/mia_all_models.py`

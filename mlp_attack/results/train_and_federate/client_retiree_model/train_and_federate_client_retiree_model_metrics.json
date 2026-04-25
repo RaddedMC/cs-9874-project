@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-04-25T19:55:27.412799+00:00",
+  "model_location": "mlp_train/artifacts/train_yourself/retiree/best_model.pt",
+  "output_name": "train_and_federate_client_retiree_model",
+  "attack_output": "mlp_attack/results/train_and_federate/client_retiree_model",
+  "target_persona": "retiree",
+  "window_size": 1,
+  "horizon": 1,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "member_count": 2282,
+  "non_member_count": 403,
+  "threshold": 0.6213871836662292,
+  "threshold_selection_accuracy": 0.8528864059590316,
+  "score_mean_member": 0.05429675430059433,
+  "score_mean_non_member": 0.0794096514582634,
+  "score_std_member": 0.08901285380125046,
+  "score_std_non_member": 0.14290492236614227,
+  "metrics": {
+    "attack_accuracy": 0.8528864059590316,
+    "attack_precision": 0.8529741863075196,
+    "attack_recall": 0.9991235758106923,
+    "attack_f1": 0.9202825428859738,
+    "roc_auc": 0.5624327186765342,
+    "tp": 2280.0,
+    "tn": 10.0,
+    "fp": 393.0,
+    "fn": 2.0
+  }
+}

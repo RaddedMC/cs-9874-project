@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-04-25T19:55:28.981950+00:00",
+  "model_location": "mlp_train/artifacts/train_yourself/gig_driver/best_model.pt",
+  "output_name": "train_and_federate_client_gig_driver_model",
+  "attack_output": "mlp_attack/results/train_and_federate/client_gig_driver_model",
+  "target_persona": "gig_driver",
+  "window_size": 1,
+  "horizon": 1,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "member_count": 2282,
+  "non_member_count": 403,
+  "threshold": 0.6606408357620239,
+  "threshold_selection_accuracy": 0.8513966480446927,
+  "score_mean_member": 0.0558682382106781,
+  "score_mean_non_member": 0.07057950645685196,
+  "score_std_member": 0.09195489436388016,
+  "score_std_non_member": 0.11541307717561722,
+  "metrics": {
+    "attack_accuracy": 0.8513966480446927,
+    "attack_precision": 0.8514371033967898,
+    "attack_recall": 0.9995617879053462,
+    "attack_f1": 0.9195726668010481,
+    "roc_auc": 0.5343197273733589,
+    "tp": 2281.0,
+    "tn": 5.0,
+    "fp": 398.0,
+    "fn": 1.0
+  }
+}
