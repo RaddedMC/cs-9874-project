@@ -49,3 +49,6 @@
 
 13. Perform a Membership Inference attack on every model:
 - `mlp_attack/membership_inference/mia_all_models.py`
+
+14. Graph the results:
+- `mlp_attack/membership_inference/graph_results.py`
